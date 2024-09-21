@@ -22,7 +22,8 @@ def create_custom_news(links, subtext):
         if len(votes):
             points = int(votes[0].getText().replace(' points', ''))
             href = anchor_tag.get('href')
-            news.append({'title': title, 'href': href, 'votes': points})
+            if points > 50:
+                news.append({'title': title, 'href': href, 'votes': points})
     return news
 
 
