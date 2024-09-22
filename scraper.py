@@ -12,6 +12,11 @@ links = content.select('.titleline')
 subtext = content.select('.subtext')
 
 
+# sort stories by the votes they have
+def sort_stories_by_votes(stories):
+    return sorted(stories, key=lambda story: story['votes'], reverse=True)
+
+
 def create_custom_news(links, subtext):
     news = []
     # get the text contents in the title
@@ -24,7 +29,7 @@ def create_custom_news(links, subtext):
             href = anchor_tag.get('href')
             if points > 50:
                 news.append({'title': title, 'href': href, 'votes': points})
-    return news
+    return sort_stories_by_votes(news)
 
 
 pprint.pprint(create_custom_news(links, subtext))
