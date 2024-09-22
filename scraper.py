@@ -4,12 +4,20 @@ import pprint
 
 # where we will be getting our data
 response = requests.get('https://news.ycombinator.com/news')
+response2 = requests.get('https://news.ycombinator.com/news?p=2')
 # convert the text we get into html , by parsing it to html because it also parses into xml
 # from the response we can get the body, body.content for the contents inside the body
 content = BeautifulSoup(response.text, 'html.parser')
+content2 = BeautifulSoup(response2.text, 'html.parser')
 
 links = content.select('.titleline')
 subtext = content.select('.subtext')
+links2 = content2.select('.titleline')
+subtext2 = content2.select('.subtext')
+
+# combining both links and subtexts
+mega_links = links + links2
+mega_subtext = subtext + subtext2
 
 
 # sort stories by the votes they have
@@ -32,4 +40,4 @@ def create_custom_news(links, subtext):
     return sort_stories_by_votes(news)
 
 
-pprint.pprint(create_custom_news(links, subtext))
+pprint.pprint(create_custom_news(mega_links, mega_subtext))
